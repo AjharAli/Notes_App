@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import  { useState, useEffect } from "react";
 // import React from "react";
 // import NoteList from "./components/NoteList";
@@ -56,7 +57,8 @@
 // };
 
 // export default App;
-import { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import NoteList from './components/NoteList';
 import Search from './components/Search';
@@ -64,30 +66,25 @@ import Header from './components/Header';
 
 const App = () => {
 	const [notes, setNotes] = useState([
-		{
-			id: nanoid(),
-			text:`                              Chapter-1
-
-                                HTML
-HTML Stands for Hypertext Markup Language. It is the standard markup language for creating web pages and web applications. It provides the structure and layout of a webpage by using a system of tags and attributes.`,
-			date:"21/3/2024" ,
-    }
-	
+		{id:nanoid(),
+    text:"ffhgffgf",
+    date:" dfghghgfhgfhfh"}
 	]);
 
 	const [searchText, setSearchText] = useState('');
 
 	const [darkMode, setDarkMode] = useState(false);
 
+	useEffect(()=>{
+  const savedNotes=JSON.parse(localStorage.getItem('react-notes-app-data')
+  );
+	console.log(savedNotes)
+  if(savedNotes){
+    setNotes(savedNotes)
+  }
+},[]);
 
-	useEffect(() => {
-		localStorage.setItem(
-			'react-notes-app-data',
-			JSON.stringify(notes)
-		);
-	}, [notes]);
 	
-
 	const addNote = (text) => {
 		const date = new Date();
 		const newNote = {
@@ -96,12 +93,20 @@ HTML Stands for Hypertext Markup Language. It is the standard markup language fo
 			date: date.toLocaleDateString(),
 		};
 		const newNotes = [...notes, newNote];
+		localStorage.setItem(
+			'react-notes-app-data',
+			JSON.stringify(newNotes)
+		);
 		setNotes(newNotes);
 	};
 
 	const deleteNote = (id) => {
 		const newNotes = notes.filter((note) => note.id !== id);
 		setNotes(newNotes);
+		localStorage.setItem(
+			'react-notes-app-data',
+			JSON.stringify(newNotes)
+		);
 	};
 
 	return (
