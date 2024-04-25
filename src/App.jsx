@@ -63,12 +63,13 @@ import { nanoid } from 'nanoid';
 import NoteList from './components/NoteList';
 import Search from './components/Search';
 import Header from './components/Header';
+import './App.css'
 
 const App = () => {
 	const [notes, setNotes] = useState([
 		{id:nanoid(),
-    text:"ffhgffgf",
-    date:" dfghghgfhgfhfh"}
+    text:" ",
+    date:" "}
 	]);
 
 	const [searchText, setSearchText] = useState('');
@@ -112,7 +113,7 @@ const App = () => {
 	return (
 		<div className={`${darkMode && 'dark-mode'}`}>
 			<div className='container'>
-				<Header handleToggleDarkMode={setDarkMode} />
+				<Header darkMode={darkMode} handleToggleDarkMode={setDarkMode} />
 				<Search handleSearchNote={setSearchText} />
 				<NoteList
 					notes={notes.filter((note) =>
